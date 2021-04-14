@@ -39,7 +39,7 @@ func refresh_data(id = class_selected):
 		for i in systemStatsData.size():
 			var stat_name = String(systemStatsData[String(i)])
 			var class_stat_formula = class_data["stat_list"]
-			var stat_formula = "";
+			var stat_formula = ""
 			if (class_stat_formula.has(stat_name)):
 				stat_formula = String(class_stat_formula[stat_name])
 			else:
@@ -54,9 +54,9 @@ func refresh_data(id = class_selected):
 			skill_list_array.append(element)
 			var skill_data = json_data["skill" + String(element)]
 			var skillName = String(skill_data["name"])
-			$SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList.add_item(skillName);
+			$SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList.add_item(skillName)
 			var level = String(class_skill_list[String(element)])
-			$SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.add_item(level);
+			$SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.add_item(level)
 
 		$SkillLabel/AddSkill/SkillLabel/OptionButton.clear()
 		for element in json_data:
@@ -79,13 +79,13 @@ func save_class_data():
 	var class_skill_list = class_data["skill_list"]
 	var effect_list = []
 
-	class_data["name"] = $NameLabel/NameText.text;
-	$ClassButton.set_item_text(class_selected, $NameLabel/NameText.text);
-	class_data["icon"] = icon_path;
-	class_data["experience"] = $ExpLabel/ExpText.text;
+	class_data["name"] = $NameLabel/NameText.text
+	$ClassButton.set_item_text(class_selected, $NameLabel/NameText.text)
+	class_data["icon"] = icon_path
+	class_data["experience"] = $ExpLabel/ExpText.text
 	var items = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_count()
 	for i in items:
-		var stat = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_text(i);
+		var stat = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_text(i)
 		var formula = $StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.get_item_text(i)
 		class_stat_formula[stat] = formula
 	
@@ -101,7 +101,7 @@ func save_class_data():
 		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_text(i)
 		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_item_text(i)
 		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_item_text(i)
-		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_item_text(i);
+		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_item_text(i)
 		effect_list.append(effect_data)
 	
 	class_data["stat_list"] = class_stat_formula
@@ -111,7 +111,7 @@ func save_class_data():
 
 
 func add_effect_list(name, dataId, value1, value2):
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_item(name);
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_item(name)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.add_item(String(dataId))
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.add_item(value1)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.add_item(value2)
@@ -129,16 +129,18 @@ func _on_Search_pressed():
 
 
 func _on_IconSearch_file_selected(path):
-	icon_path = path;
+	icon_path = path
 	$IconLabel/IconSprite.texture = load(path)
+
 
 func _on_ClassSaveButton_pressed():
 	save_class_data()
 	refresh_data()
 
+
 func _on_AddClass_pressed():
-	$ClassButton.add_item("NewClass");
-	var id = $ClassButton.get_item_count() - 1;
+	$ClassButton.add_item("NewClass")
+	var id = $ClassButton.get_item_count() - 1
 	var json_data = get_parent().get_parent().call("read_data", "Class")
 	var class_data = {}
 	var stat_data = {}
@@ -169,16 +171,16 @@ func _on_RemoveClass_pressed():
 		var classId = class_selected
 		while classId < json_data.size() - 1:
 			if (json_data.has("class" + String(classId+1))):
-				json_data["class" + String(classId)] = json_data["class" + String(classId+1)];
-			classId += 1;
+				json_data["class" + String(classId)] = json_data["class" + String(classId+1)]
+			classId += 1
 		
-		json_data.erase("class" + String(classId));
-		get_parent().get_parent().call("store_data", "Class", json_data);
+		json_data.erase("class" + String(classId))
+		get_parent().get_parent().call("store_data", "Class", json_data)
 		$ClassButton.remove_item(class_selected)
 		if (class_selected == 0):
-			class_selected += 1;
+			class_selected += 1
 		else:
-			class_selected -= 1;
+			class_selected -= 1
 		
 		$ClassButton.select(class_selected)
 		refresh_data()
@@ -191,6 +193,7 @@ func _on_ClassButton_item_selected(var id):
 
 func _on_AddSkillButton_pressed():
 	$SkillLabel/AddSkill.popup_centered()
+
 
 func _on_RemoveButton_pressed():
 	var selected = $SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList.get_selected_items()[0]
@@ -206,54 +209,50 @@ func _on_OkButton_pressed():
 	skill_list_array.append(String(skill))
 	var skill_data = json_data["skill" + String(skill)]
 	var skillName = String(skill_data["name"])
-	$SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList.add_item(skillName);
-	$SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.add_item(String(level));
-
+	$SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList.add_item(skillName)
+	$SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.add_item(String(level))
 	$SkillLabel/AddSkill.hide()
 
 
 func _on_CancelButton_pressed():
-
 	$SkillLabel/AddSkill.hide()
 
 
 func _on_StatsList_item_selected(index):
-
-	$StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.select(index);
+	$StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.select(index)
 
 
 func _on_FormulaList_item_selected(index):
-
-	$StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.select(index);
+	$StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.select(index)
 
 
 func _on_SkillList_item_selected(index):
-	$SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.select(index);
+	$SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.select(index)
 
 
 func _on_SkillLevelList_item_selected(index):
-	$SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList.select(index);
+	$SkillLabel/SkillContainer/HBoxContainer/SkillListContainer/SkillList.select(index)
 
 
 func _on_FormulaList_item_activated(index):
-	var stat_name = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_text(index);
-	var stat_formula = $StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.get_item_text(index);
-	$StatEditor/StatLabel.text = stat_name;
-	$StatEditor/StatEdit.text = stat_formula;
-	stat_edit = index;
+	var stat_name = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_text(index)
+	var stat_formula = $StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.get_item_text(index)
+	$StatEditor/StatLabel.text = stat_name
+	$StatEditor/StatEdit.text = stat_formula
+	stat_edit = index
 	$StatEditor.show()
 
 
 func _on_OkStatButton_pressed():
-	var stat_formula = $StatEditor/StatEdit.text;
-	$StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.set_item_text(stat_edit, stat_formula);
+	var stat_formula = $StatEditor/StatEdit.text
+	$StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.set_item_text(stat_edit, stat_formula)
 	save_class_data()
-	stat_edit = -1;
+	stat_edit = -1
 	$StatEditor.hide()
 
 
 func _on_CancelStatButton_pressed():
-	stat_edit = -1;
+	stat_edit = -1
 	$StatEditor.hide()
 
 

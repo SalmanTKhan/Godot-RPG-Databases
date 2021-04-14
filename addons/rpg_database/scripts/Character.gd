@@ -122,10 +122,10 @@ func save_character_data():
 	var initial_equip_data = character_data["initial_equip"]
 	var effect_list = []
 
-	character_data["faceImage"] = face_path;
-	character_data["charaImage"] = character_path;
+	character_data["faceImage"] = face_path
+	character_data["charaImage"] = character_path
 	character_data["name"] = $NameLabel/NameText.text
-	$CharacterButton.set_item_text(character_selected, $NameLabel/NameText.text);
+	$CharacterButton.set_item_text(character_selected, $NameLabel/NameText.text)
 	character_data["class"] = $ClassLabel/ClassText.selected
 	character_data["description"] = $DescLabel/DescText.text
 	character_data["initialLevel"] = $InitLevelLabel/InitLevelText.value
@@ -134,7 +134,7 @@ func save_character_data():
 	equip_type_data.clear()
 	var equip_items = $EquipLabel/EquipContainer/EquipContainer/EquipList.get_item_count()
 	for i in equip_items:
-		var kind = $EquipLabel/EquipContainer/EquipContainer/EquipList.get_item_text(i).substr(0, 1);
+		var kind = $EquipLabel/EquipContainer/EquipContainer/EquipList.get_item_text(i).substr(0, 1)
 		match (kind):
 			"W":
 				equip_type_data["w" + String(i)] = equip_id_array[i]
@@ -157,10 +157,10 @@ func save_character_data():
 		effect_list.append(effect_data)
 	character_data["effects"] = effect_list
 	
-	get_parent().get_parent().call("store_data", "Character", json_data);
+	get_parent().get_parent().call("store_data", "Character", json_data)
 
 func add_effect_list(name, dataId, value1, value2):
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_item(name);
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_item(name)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.add_item(String(dataId))
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.add_item(value1)
 	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.add_item(value2)
@@ -179,12 +179,12 @@ func _on_CharaSaveButton_pressed():
 
 
 func _on_CharacterButton_item_selected(id):
-	character_selected = id;
+	character_selected = id
 	refresh_data()
 
 func _on_AddButton_pressed():
 	$CharacterButton.add_item("NewCharacter")
-	var id = $CharacterButton.get_item_count() - 1;
+	var id = $CharacterButton.get_item_count() - 1
 	var json_data = get_parent().get_parent().call("read_data", "Character")
 	var characterData = {}
 	var etypeData = {}
@@ -274,7 +274,7 @@ func _on_EquipList_item_activated(index):
 		for key in equipTypesData:
 			var kind = String(key[0])
 			if (kind == "a"):
-				armorArray.append(int(equipTypesData[key]));
+				armorArray.append(int(equipTypesData[key]))
 
 		for armor in armorList:
 			var armorData = armorList[armor]
@@ -314,7 +314,7 @@ func _on_AddEquipTypeButton_pressed():
 
 
 func _on_RemoveEquipTypeButton_pressed():
-	var selected = $EquipLabel/EquipContainer/EquipContainer/EquipList.get_selected_items()[0];
+	var selected = $EquipLabel/EquipContainer/EquipContainer/EquipList.get_selected_items()[0]
 	equip_id_array.remove(selected)
 	$EquipLabel/EquipContainer/EquipContainer/EquipList.remove_item(selected)
 
@@ -342,7 +342,7 @@ func _on_TypeButton_item_selected(index):
 func _on_OkButton_pressed():
 	var kind = $EquipLabel/AddEquip/TypeLabel/TypeButton.selected
 	var item = $EquipLabel/AddEquip/EquipLabel/EquipButton.selected
-	equip_id_array.append(int((item)));
+	equip_id_array.append(int((item)))
 	var itemText = $EquipLabel/AddEquip/EquipLabel/EquipButton.text
 	match (kind):
 		0:
@@ -357,12 +357,12 @@ func _on_CancelButton_pressed():
 
 
 func _on_CharacterAddEffectButton_pressed():
-	get_parent().get_parent().call("open_effect_manager", "Character");
+	get_parent().get_parent().call("open_effect_manager", "Character")
 
 
 func _on_CharacterRemoveEffectButton_pressed():
-	var id = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0];
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id);
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id);
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id);
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.remove_item(id);
+	var id = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0]
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.remove_item(id)

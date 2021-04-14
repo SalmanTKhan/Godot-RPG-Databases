@@ -10,7 +10,7 @@ func start():
 	var armors_data = json_data["armors"]
 	var elements_data = json_data["elements"]
 	var slots_data = json_data["slots"]
-	var skills_data;
+	var skills_data
 
 	if (json_data.has("skills")):
 		skills_data = json_data["skills"]
@@ -96,48 +96,48 @@ func save_armors():
 	var json_data = get_parent().get_parent().call("read_data", "System")
 	var armors_data = {}
 
-	var armor_size = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_item_count();
+	var armor_size = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_item_count()
 	for i in armor_size:
-		var text = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_item_text(i);
+		var text = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_item_text(i)
 		armors_data[String(i)] = text
 
-	json_data["armors"] = armors_data;
-	get_parent().get_parent().call("store_data", "System", json_data);
+	json_data["armors"] = armors_data
+	get_parent().get_parent().call("store_data", "System", json_data)
 
 
 func save_elements():
 	var json_data = get_parent().get_parent().call("read_data", "System")
 	var elements_data = {}
 
-	var element_size = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_item_count();
+	var element_size = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_item_count()
 	for i in element_size:
-		var text = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_item_text(i);
+		var text = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_item_text(i)
 		elements_data[String(i)] = text
 
-	json_data["elements"] = elements_data;
-	get_parent().get_parent().call("store_data", "System", json_data);
+	json_data["elements"] = elements_data
+	get_parent().get_parent().call("store_data", "System", json_data)
 
 
 func save_skills():
 	var json_data = get_parent().get_parent().call("read_data", "System")
 	var skills_data = {}
 
-	var skill_size = $SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList.get_item_count();
+	var skill_size = $SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList.get_item_count()
 	for i in skill_size:
-		var text = $SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList.get_item_text(i);
+		var text = $SkillTypesLabel/SkillTypeContainer/VBoxContainer/SkillTypeList.get_item_text(i)
 		skills_data[String(i)] = text
 
 	json_data["skills"] = skills_data
-	get_parent().get_parent().call("store_data", "System", json_data);
+	get_parent().get_parent().call("store_data", "System", json_data)
 
 
 func save_slots():
 	var json_data = get_parent().get_parent().call("read_data", "System")
 	var slots_data = {}
 
-	var slot_size = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.get_item_count();
+	var slot_size = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.get_item_count()
 	for i in slot_size:
-		var kind = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.get_item_text(i);
+		var kind = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.get_item_text(i)
 		var id = ""
 		match (kind):
 			"Weapon":
@@ -145,15 +145,15 @@ func save_slots():
 			"Armor":
 				id = "a"
 	
-		var text = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList.get_item_text(i);
-		id += String(i);
+		var text = $EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList.get_item_text(i)
+		id += String(i)
 		slots_data[String(id)] = text
 
 	json_data["slots"] = slots_data
 	get_parent().get_parent().call("store_data", "System", json_data)
 
 func _on_OKButton_pressed():
-	var name = $EditField/FieldName.text;
+	var name = $EditField/FieldName.text
 	if (name != ""):
 		if (edited_field == 0):
 			$StatsLabel/StatsContainer/StatsBoxContainer/StatsList.add_item(name)
@@ -203,10 +203,10 @@ func _on_AddWeapon_pressed():
 
 
 func _on_RemoveWeapon_pressed():
-	var index = $WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList.get_selected_items()[0];
+	var index = $WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList.get_selected_items()[0]
 	if (index > -1):
-		$WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList.remove_item(index);
-		save_data();
+		$WeaponTypesLabel/WeaponTypesContainer/WpBoxContainer/WeaponList.remove_item(index)
+		save_data()
 
 
 func _on_AddArmor_pressed():
@@ -217,21 +217,21 @@ func _on_AddArmor_pressed():
 
 
 func _on_RemoveArmor_pressed():
-	var index = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_selected_items()[0];
+	var index = $ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.get_selected_items()[0]
 	if (index > -1):
-		$ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.remove_item(index);
+		$ArmorTypesLabel/ArmorTypesContainer/ArBoxContainer/ArmorList.remove_item(index)
 		save_data()
 
 
 func _on_AddElement_pressed():
-	edited_field = 3;
-	$EditField.window_title = "Add Element";
+	edited_field = 3
+	$EditField.window_title = "Add Element"
 	$EditField/FieldName.text = ""
-	$EditField.popup_centered(Vector2(392, 95));
+	$EditField.popup_centered(Vector2(392, 95))
 
 
 func _on_RemoveElement_pressed():
-	var index = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_selected_items()[0];
+	var index = $ElementLabel/ElementContainer/EleBoxContainer/ElementList.get_selected_items()[0]
 	if (index > -1):
 		$ElementLabel/ElementContainer/EleBoxContainer/ElementList.remove_item(index)
 		save_data()
@@ -275,6 +275,6 @@ func _on_AddSlotOkButton_pressed():
 		1:
 			$EquipmentLabel/EquipContainer/SetContainer/SetDivisor/KindList.add_item("Armor")
 	var name = $AddSlot/NameLabel/NameEdit.text
-	$EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList.add_item(name);
+	$EquipmentLabel/EquipContainer/SetContainer/SetDivisor/TypeList.add_item(name)
 	save_data()
 	$AddSlot.hide()

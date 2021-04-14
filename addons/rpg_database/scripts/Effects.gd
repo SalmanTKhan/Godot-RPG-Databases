@@ -16,23 +16,23 @@ func start():
 			if showList.has("show") and showList["show"]:
 				$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.add_item(String(showList["data"]))
 			else:
-				$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.add_item("Disabled");
+				$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.add_item("Disabled")
 
 			$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.add_item(String(effectData["value1"]))
 			if (value2.has("show") and value2["show"]):
 				$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item(String(value2["data"]))
 			else:
-				$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item("-1");
-		databaseLoaded = true;
+				$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.add_item("-1")
+		databaseLoaded = true
 
 func _on_AddEffect_pressed():
-	addNewEffect = true;
+	addNewEffect = true
 	$AddEffect.popup_centered()
 
 
 func _on_EditEffect_pressed():
 	if ($EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0] > -1):
-		addNewEffect = false;
+		addNewEffect = false
 		var id = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0]
 
 		var name = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_item_text(id)
@@ -40,7 +40,7 @@ func _on_EditEffect_pressed():
 		var value1 = int($EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.get_item_text(id))
 		var value2 = int($EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.get_item_text(id))
 
-		$AddEffect/VBoxContainer/Name/LineEdit.text = name;
+		$AddEffect/VBoxContainer/Name/LineEdit.text = name
 		if (dataTypes == "Disabled"):
 			$AddEffect/VBoxContainer/ShowList/CheckButton.pressed = false
 			$AddEffect/VBoxContainer/ShowList/OptionButton.disabled = true
@@ -74,7 +74,7 @@ func _on_EditEffect_pressed():
 
 
 func _on_RemoveEffect_pressed():
-	var selectedEffect = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0];
+	var selectedEffect = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0]
 	if (selectedEffect > -1):
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.remove_item(selectedEffect)
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.remove_item(selectedEffect)
@@ -116,9 +116,9 @@ func _on_AddEffectConfirm_pressed():
 	if ($AddEffect/VBoxContainer/Value2/CheckButton.pressed == true):
 		value2 = $AddEffect/VBoxContainer/Value2/OptionButton.selected
 	if (addNewEffect == false):
-		var id = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0];
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.set_item_text(id, name);
-		$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.set_item_text(id, dataType);
+		var id = $EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.get_selected_items()[0]
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectNames.set_item_text(id, name)
+		$EffectLabel/PanelContainer/VBoxContainer/Effects/DataTypes.set_item_text(id, dataType)
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.set_item_text(id, String(value1))
 		$EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.set_item_text(id, String(value2))
 	else:
@@ -151,7 +151,7 @@ func _on_SaveEffects_pressed():
 			showList["show"] = true
 			showList["data"] = dataType
 	
-		effectData["data_type"] = showList;
+		effectData["data_type"] = showList
 		effectData["value1"] = int($EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue1.get_item_text(i))
 		var value2Val = int($EffectLabel/PanelContainer/VBoxContainer/Effects/EffectValue2.get_item_text(i))
 		if (value2Val == -1):

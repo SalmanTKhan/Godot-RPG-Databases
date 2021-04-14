@@ -19,7 +19,7 @@ func start():
 		if (i > $DamageLabel/ElementLabel/ElementButton.get_item_count() - 1):
 			$DamageLabel/ElementLabel/ElementButton.add_item(String(systemData[String(i)]))
 		else:
-			$DamageLabel/ElementLabel/ElementButton.set_item_text(i, String(systemData[String(i)]));
+			$DamageLabel/ElementLabel/ElementButton.set_item_text(i, String(systemData[String(i)]))
 
 
 
@@ -28,8 +28,8 @@ func start():
 		if (i > $SkillTypeLabel/SkillTypeButton.get_item_count() - 1):
 			$SkillTypeLabel/SkillTypeButton.add_item(String(systemData[String(i)]))
 		else:
-			$SkillTypeLabel/SkillTypeButton.set_item_text(i, String(systemData[String(i)]));
-	refresh_data(skillSelected);
+			$SkillTypeLabel/SkillTypeButton.set_item_text(i, String(systemData[String(i)]))
+	refresh_data(skillSelected)
 
 
 func refresh_data(id = skillSelected):
@@ -68,8 +68,8 @@ func save_skill_data():
 	var effect_list = []
 	
 	skill_data["name"] = $NameLabel/NameText.text
-	$SkillButton.set_item_text(skillSelected, $NameLabel/NameText.text);
-	skill_data["icon"] = iconPath;
+	$SkillButton.set_item_text(skillSelected, $NameLabel/NameText.text)
+	skill_data["icon"] = iconPath
 	skill_data["description"] = $DescLabel/DescText.text
 	skill_data["skill_type"] = $SkillTypeLabel/SkillTypeButton.selected
 	skill_data["mp_cost"] = $MPCostLabel/MPCostBox.value
@@ -113,13 +113,13 @@ func _on_Search_pressed():
 
 
 func _on_IconSearch_file_selected(path):
-	iconPath = path;
+	iconPath = path
 	$IconLabel/IconSprite.texture = load(path)
 
 
 func _on_AddSkill_pressed():
 	$SkillButton.add_item("NewSkill")
-	var id = $SkillButton.get_item_count() - 1;
+	var id = $SkillButton.get_item_count() - 1
 	var json_data = get_parent().get_parent().call("read_data", "Skill")
 	var skill_data = {}
 	skill_data["name"] = "NewSkill"
@@ -136,7 +136,7 @@ func _on_AddSkill_pressed():
 	skill_data["element"] = 0
 	skill_data["formula"] = "atk * 4 - def * 2"
 	json_data["skill" + String(id)] = skill_data
-	get_parent().get_parent().call("store_data", "Skill", json_data);
+	get_parent().get_parent().call("store_data", "Skill", json_data)
 	skillSelected = id
 	refresh_data()
 
@@ -148,16 +148,16 @@ func _on_RemoveSkill_pressed():
 		while (skillId < json_data.size() - 1):
 			if json_data.has("skill" + String(skillId + 1)):
 				json_data["skill" + String(skillId)] = json_data["skill" + String(skillId + 1)]
-			skillId += 1;
+			skillId += 1
 		json_data.erase("skill" + String(skillId))
 		get_parent().get_parent().call("store_data", "Skill", json_data)
-		$SkillButton.remove_item(skillSelected);
+		$SkillButton.remove_item(skillSelected)
 		if (skillSelected == 0):
-			$SkillButton.select(skillSelected + 1);
-			skillSelected += 1;
+			$SkillButton.select(skillSelected + 1)
+			skillSelected += 1
 		else:
-			$SkillButton.select(skillSelected - 1);
-			skillSelected -= 1;
+			$SkillButton.select(skillSelected - 1)
+			skillSelected -= 1
 		$SkillButton.select(skillSelected)
 		refresh_data(skillSelected)
 
@@ -168,16 +168,17 @@ func _on_SkillSaveButton_pressed():
 
 
 func _on_SkillButton_item_selected(id):
-	skillSelected = id;
-	refresh_data(id);
+	skillSelected = id
+	refresh_data(id)
+
 
 func _on_AddSkillEffect_pressed():
 	get_parent().get_parent().call("open_effect_manager", "Skill")
 
 
 func _on_RemoveSkillEffect_pressed():
-	var id = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0];
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id);
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id);
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id);
-	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.remove_item(id);
+	var id = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0]
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.remove_item(id)
