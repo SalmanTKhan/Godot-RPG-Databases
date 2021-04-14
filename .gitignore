@@ -6,3 +6,9 @@ export_presets.cfg
 
 # Mono-specific ignores
 .mono/
+screenshots/armor.png.import
+screenshots/character.png.import
+screenshots/class.png.import
+screenshots/item.png.import
+screenshots/skill.png.import
+screenshots/weapon.png.import

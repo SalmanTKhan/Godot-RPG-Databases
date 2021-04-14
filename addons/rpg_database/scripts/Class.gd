@@ -64,6 +64,11 @@ func refresh_data(id = class_selected):
 			var name = String(skill_data["name"])
 			$SkillLabel/AddSkill/SkillLabel/OptionButton.add_item(name)
 			$SkillLabel/AddSkill/SkillLabel/OptionButton.select(0)
+		clear_effect_list()
+		if (class_data.has("effects")):
+			var effect_list = class_data["effects"]
+			for effect in effect_list:
+				add_effect_list(String(effect["name"]), int(effect["data_id"]), String(effect["value1"]), String(effect["value2"]))
 	else:
 		print("Unable to find class data for ID: " + String(id) )
 
@@ -72,6 +77,7 @@ func save_class_data():
 	var class_data = json_data["class" + String(class_selected)]
 	var class_stat_formula = class_data["stat_list"]
 	var class_skill_list = class_data["skill_list"]
+	var effect_list = []
 
 	class_data["name"] = $NameLabel/NameText.text;
 	$ClassButton.set_item_text(class_selected, $NameLabel/NameText.text);
@@ -79,20 +85,44 @@ func save_class_data():
 	class_data["experience"] = $ExpLabel/ExpText.text;
 	var items = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_count()
 	for i in items:
-	
 		var stat = $StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList.get_item_text(i);
-		var formula = $StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.get_item_text(i);
-		class_stat_formula[stat] = formula;
+		var formula = $StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList.get_item_text(i)
+		class_stat_formula[stat] = formula
 	
 	var skills_count = $SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.get_item_count()
 	for i in skills_count:
 		var skill = String(skill_list_array[i])
-		var level = int($SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.get_item_text(i));
+		var level = int($SkillLabel/SkillContainer/HBoxContainer/SkillLevelContainer/SkillLevelList.get_item_text(i))
 		class_skill_list[skill] = level
+	
+	var effect_size = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_count()
+	for i in effect_size:
+		var effect_data = {}
+		effect_data["name"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_item_text(i)
+		effect_data["data_id"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.get_item_text(i)
+		effect_data["value1"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.get_item_text(i)
+		effect_data["value2"] = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.get_item_text(i);
+		effect_list.append(effect_data)
 	
 	class_data["stat_list"] = class_stat_formula
 	class_data["skill_list"] = class_skill_list
-	get_parent().get_parent().call("store_data", "Class", json_data);
+	class_data["effects"] = effect_list
+	get_parent().get_parent().call("store_data", "Class", json_data)
+
+
+func add_effect_list(name, dataId, value1, value2):
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.add_item(name);
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.add_item(String(dataId))
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.add_item(value1)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.add_item(value2)
+
+
+func clear_effect_list():
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.clear()
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.clear()
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.clear()
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.clear()
+
 
 func _on_Search_pressed():
 	$IconLabel/IconSearch.popup_centered()
@@ -225,3 +255,15 @@ func _on_OkStatButton_pressed():
 func _on_CancelStatButton_pressed():
 	stat_edit = -1;
 	$StatEditor.hide()
+
+
+func _on_AddClassEffect_pressed():
+	get_parent().get_parent().call("open_effect_manager", "Class")
+
+
+func _on_RemoveClassEffect_pressed():
+	var id = $EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.get_selected_items()[0]
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectNames.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/DataType.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue1.remove_item(id)
+	$EffectLabel/PanelContainer/VBoxContainer/HBoxContainer/EffectValue2.remove_item(id)

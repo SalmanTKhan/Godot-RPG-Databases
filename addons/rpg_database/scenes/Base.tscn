@@ -65,7 +65,6 @@ __meta__ = {
 }
 
 [node name="Character" type="Container" parent="Tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -272,7 +271,7 @@ size_flags_vertical = 3
 margin_right = 112.0
 margin_bottom = 182.0
 rect_min_size = Vector2( 112, 0 )
-items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false ]
+items = [ "Weapon", null, false, "Head", null, false, "Body", null, false, "Accessory", null, false, "Secondary Weapon", null, false ]
 
 [node name="EquipList" type="ItemList" parent="Tabs/Character/InitialEquipLabel/PanelContainer/TypeContainer"]
 margin_left = 116.0
@@ -281,7 +280,7 @@ margin_bottom = 182.0
 rect_min_size = Vector2( 128, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-items = [ "None", null, false, "None", null, false, "None", null, false, "None", null, false ]
+items = [ "None", null, false, "None", null, false, "None", null, false, "None", null, false, "None", null, false ]
 
 [node name="InitialEquipChange" type="WindowDialog" parent="Tabs/Character/InitialEquipLabel"]
 margin_left = 109.0
@@ -458,24 +457,28 @@ margin_right = 110.0
 margin_bottom = 324.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+items = [ "hp_recovery", null, false ]
 
 [node name="DataType" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 114.0
 margin_right = 178.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 64, 0 )
+items = [ "-1", null, false ]
 
 [node name="EffectValue1" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 182.0
 margin_right = 246.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 64, 0 )
+items = [ "10", null, false ]
 
 [node name="EffectValue2" type="ItemList" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 250.0
 margin_right = 314.0
 margin_bottom = 324.0
 rect_min_size = Vector2( 64, 0 )
+items = [ "1", null, false ]
 
 [node name="AddButton" type="Button" parent="Tabs/Character/EffectLabel/PanelContainer/VBoxContainer"]
 margin_top = 328.0
@@ -758,6 +761,68 @@ margin_right = 160.0
 margin_bottom = 280.0
 rect_min_size = Vector2( 0, 280 )
 
+[node name="EffectLabel" type="Label" parent="Tabs/Class"]
+margin_left = 610.0
+margin_top = 65.0
+margin_right = 650.0
+margin_bottom = 79.0
+text = "Effect"
+
+[node name="PanelContainer" type="PanelContainer" parent="Tabs/Class/EffectLabel"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 336.0
+margin_bottom = 402.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Class/EffectLabel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 321.0
+margin_bottom = 379.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer"]
+margin_right = 314.0
+margin_bottom = 324.0
+size_flags_vertical = 3
+
+[node name="EffectNames" type="ItemList" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 110.0
+margin_bottom = 324.0
+size_flags_horizontal = 3
+
+[node name="DataType" type="ItemList" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 114.0
+margin_right = 178.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue1" type="ItemList" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 182.0
+margin_right = 246.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue2" type="ItemList" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 250.0
+margin_right = 314.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="AddEffect" type="Button" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 328.0
+margin_right = 314.0
+margin_bottom = 348.0
+text = "Add Effect"
+
+[node name="RemoveEffect" type="Button" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer"]
+margin_top = 352.0
+margin_right = 314.0
+margin_bottom = 372.0
+text = "Remove Effect"
+
 [node name="StatEditor" type="WindowDialog" parent="Tabs/Class"]
 margin_left = 152.0
 margin_top = 67.0
@@ -793,56 +858,6 @@ margin_top = 60.0
 margin_right = 271.0
 margin_bottom = 80.0
 text = "Cancel"
-
-[node name="EffectLabel" type="Label" parent="Tabs/Class"]
-margin_left = 610.0
-margin_top = 65.0
-margin_right = 650.0
-margin_bottom = 79.0
-text = "Effect"
-
-[node name="PanelContainer" type="PanelContainer" parent="Tabs/Class/EffectLabel"]
-margin_left = 8.0
-margin_top = 16.0
-margin_right = 336.0
-margin_bottom = 402.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Class/EffectLabel/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 321.0
-margin_bottom = 379.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer"]
-margin_right = 314.0
-margin_bottom = 324.0
-size_flags_vertical = 3
-
-[node name="EffectNames" type="ItemList" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 214.0
-margin_bottom = 324.0
-size_flags_horizontal = 3
-
-[node name="EffectValues" type="ItemList" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 218.0
-margin_right = 314.0
-margin_bottom = 324.0
-rect_min_size = Vector2( 96, 0 )
-
-[node name="AddEffect" type="Button" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer"]
-margin_top = 328.0
-margin_right = 314.0
-margin_bottom = 348.0
-text = "Add Effect"
-
-[node name="RemoveEffect" type="Button" parent="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer"]
-margin_top = 352.0
-margin_right = 314.0
-margin_bottom = 372.0
-text = "Remove Effect"
 
 [node name="Skill" type="Container" parent="Tabs"]
 visible = false
@@ -1178,16 +1193,28 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="EffectNames" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_right = 214.0
+margin_right = 110.0
 margin_bottom = 324.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EffectValues" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 218.0
+[node name="DataType" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 114.0
+margin_right = 178.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue1" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 182.0
+margin_right = 246.0
+margin_bottom = 324.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="EffectValue2" type="ItemList" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 250.0
 margin_right = 314.0
 margin_bottom = 324.0
-rect_min_size = Vector2( 96, 0 )
+rect_min_size = Vector2( 64, 0 )
 
 [node name="AddEffect" type="Button" parent="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer"]
 margin_top = 328.0
@@ -3256,6 +3283,7 @@ rect_min_size = Vector2( 90, 26 )
 text = "Cancel"
 
 [node name="System" type="Container" parent="Tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -3609,9 +3637,6 @@ margin_bottom = 22.0
 placeholder_text = "Slot Name"
 caret_blink = true
 caret_blink_speed = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TypeLabel" type="Label" parent="Tabs/System/AddSlot"]
 margin_left = 48.0
@@ -3785,6 +3810,8 @@ text = "Confirm"
 [connection signal="item_selected" from="Tabs/Class/StatsLabel/StatsContainer/DataContainer/StatsListContainer/StatsList" to="Tabs/Class" method="_on_StatsList_item_selected"]
 [connection signal="item_activated" from="Tabs/Class/StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList" to="Tabs/Class" method="_on_FormulaList_item_activated"]
 [connection signal="item_selected" from="Tabs/Class/StatsLabel/StatsContainer/DataContainer/FormulaListContainer/FormulaList" to="Tabs/Class" method="_on_FormulaList_item_selected"]
+[connection signal="pressed" from="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/Class" method="_on_AddClassEffect_pressed"]
+[connection signal="pressed" from="Tabs/Class/EffectLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/Class" method="_on_RemoveClassEffect_pressed"]
 [connection signal="pressed" from="Tabs/Class/StatEditor/OkButton" to="Tabs/Class" method="_on_OkStatButton_pressed"]
 [connection signal="pressed" from="Tabs/Class/StatEditor/CancelButton" to="Tabs/Class" method="_on_CancelStatButton_pressed"]
 [connection signal="pressed" from="Tabs/Skill/SkillSaveButton" to="Tabs/Skill" method="_on_SkillSaveButton_pressed"]
@@ -3793,6 +3820,8 @@ text = "Confirm"
 [connection signal="pressed" from="Tabs/Skill/SkillButton/RemoveSkill" to="Tabs/Skill" method="_on_RemoveSkill_pressed"]
 [connection signal="pressed" from="Tabs/Skill/IconLabel/Search" to="Tabs/Skill" method="_on_Search_pressed"]
 [connection signal="file_selected" from="Tabs/Skill/IconLabel/IconSearch" to="Tabs/Skill" method="_on_IconSearch_file_selected"]
+[connection signal="pressed" from="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/Skill" method="_on_AddSkillEffect_pressed"]
+[connection signal="pressed" from="Tabs/Skill/EffectLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/Skill" method="_on_RemoveSkillEffect_pressed"]
 [connection signal="pressed" from="Tabs/Item/ItemSaveButton" to="Tabs/Item" method="_on_ItemSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Item/ItemButton" to="Tabs/Item" method="_on_ItemButton_item_selected"]
 [connection signal="pressed" from="Tabs/Item/ItemButton/AddItem" to="Tabs/Item" method="_on_AddItem_pressed"]
