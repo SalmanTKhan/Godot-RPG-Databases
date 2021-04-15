@@ -73,7 +73,6 @@ func refresh_data(id = enemy_selected):
 					$DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList.add_item(String(armor_data["name"]))
 		
 			$DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/ChanceList.add_item(String(dropList[drop]))
-		
 		$ExpLabel/ExpSpin.value = int(enemy_data["experience"])
 		$GoldLabel/GoldSpin.value = int(enemy_data["money"])
 		
@@ -186,6 +185,9 @@ func _on_RemoveEnemy_pressed():
 		$EnemyButton.select(enemy_selected)
 		refresh_data()
 
+func _on_EnemyButton_item_selected(id):
+	enemy_selected = id
+	refresh_data()
 
 func _on_SearchGraphic_pressed():
 	$EnemyGraphic.popup_centered()
@@ -232,10 +234,17 @@ func _on_AddDrop_pressed():
 
 
 func _on_RemoveDrop_pressed():
+	var json_data = get_parent().get_parent().call("read_data", "Enemy")
+	var enemy_data = json_data["enemy" + String(enemy_selected)]
+	var drops_data = enemy_data["drop_list"]
 	for i in $DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList.get_selected_items():
 		$DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/DropsList.remove_item(i)
 		$DropsLabel/DropsContainer/VBoxContainer/HBoxContainer/ChanceList.remove_item(i)
-	save_enemy_data()
+		drops_data.erase(drop_id_array[i])
+		drop_id_array.remove(i)
+	enemy_data["drop_list"] = drops_data
+	json_data["enemy" + String(enemy_selected)] = enemy_data
+	get_parent().get_parent().call("store_data", "Enemy", json_data)
 
 
 func _on_DropType_item_selected(index):

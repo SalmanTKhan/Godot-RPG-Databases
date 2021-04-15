@@ -2271,6 +2271,9 @@ margin_left = 142.0
 margin_right = 166.0
 margin_bottom = 24.0
 text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="RemoveEnemy" type="Button" parent="Tabs/Enemy/EnemyButton"]
 margin_left = 170.0
@@ -3848,6 +3851,7 @@ margin_bottom = 24.0
 rect_min_size = Vector2( 80, 24 )
 size_flags_horizontal = 0
 text = "Confirm"
+
 [connection signal="tab_changed" from="Tabs" to="." method="_on_Tabs_tab_changed"]
 [connection signal="pressed" from="Tabs/Character/CharaSaveButton" to="Tabs/Character" method="_on_CharaSaveButton_pressed"]
 [connection signal="item_selected" from="Tabs/Character/CharacterButton" to="Tabs/Character" method="_on_CharacterButton_item_selected"]
@@ -3923,6 +3927,7 @@ text = "Confirm"
 [connection signal="pressed" from="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/AddEffect" to="Tabs/Armor" method="_on_AddArmorEffect_pressed"]
 [connection signal="pressed" from="Tabs/Armor/EffectLabel/PanelContainer/VBoxContainer/RemoveEffect" to="Tabs/Armor" method="_on_RemoveArmorEffect_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/EnemySaveButton" to="Tabs/Enemy" method="_on_EnemySaveButton_pressed"]
+[connection signal="item_selected" from="Tabs/Enemy/EnemyButton" to="Tabs/Enemy" method="_on_EnemyButton_item_selected"]
 [connection signal="pressed" from="Tabs/Enemy/EnemyButton/AddEnemy" to="Tabs/Enemy" method="_on_AddEnemy_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/EnemyButton/RemoveEnemy" to="Tabs/Enemy" method="_on_RemoveEnemy_pressed"]
 [connection signal="pressed" from="Tabs/Enemy/GraphicLabel/SearchGraphic" to="Tabs/Enemy" method="_on_SearchGraphic_pressed"]
