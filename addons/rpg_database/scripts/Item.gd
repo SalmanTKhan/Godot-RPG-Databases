@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 
 var icon_path = ""

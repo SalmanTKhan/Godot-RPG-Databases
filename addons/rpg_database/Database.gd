@@ -1,4 +1,4 @@
-tool
+@tool
 extends EditorPlugin
 
 var main_panel: PackedScene = load("res://addons/rpg_database/scenes/Base.tscn")
@@ -12,9 +12,9 @@ func _ready():
 	pass # Replace with function body.
 
 func _enter_tree():
-	instanced_scene = main_panel.instance()
+	instanced_scene = main_panel.instantiate()
 	button.text = "Database"
-	button.connect("pressed", self, "_on_button_pressed")
+	button.connect("pressed", _on_button_pressed)
 	add_control_to_container(0, button)
 	add_child(instanced_scene)
 
