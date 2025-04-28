@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 
 var face_path: String = ""
@@ -117,7 +117,7 @@ func set_face_image(path):
 
 func save_character_data():
 	var json_data = get_parent().get_parent().call("read_data", "Character")
-	var character_data = json_data["chara" + String(character_selected)]
+	var character_data = json_data["chara" + str(character_selected)]
 	var equip_type_data = character_data["equip_types"]
 	var initial_equip_data = character_data["initial_equip"]
 	var effect_list = []
@@ -247,7 +247,7 @@ func _on_EquipList_item_activated(index):
 	$InitialEquipLabel/InitialEquipChange/Label/OptionButton.clear()
 	$InitialEquipLabel/InitialEquipChange/Label/OptionButton.add_item("None")
 	var json_data = get_parent().get_parent().call("read_data", "Character")
-	var character_data = json_data["chara" + String(character_selected)]
+	var character_data = json_data["chara" + str(character_selected)]
 
 	json_data = get_parent().get_parent().call("read_data", "System")
 	var slotsData = json_data["slots"]

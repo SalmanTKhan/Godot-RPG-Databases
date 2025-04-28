@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 
 var icon_path = ""
@@ -186,7 +186,7 @@ func _on_RemoveClass_pressed():
 		refresh_data()
 	
 
-func _on_ClassButton_item_selected(var id):
+func _on_ClassButton_item_selected(id):
 	class_selected = id
 	refresh_data()
 

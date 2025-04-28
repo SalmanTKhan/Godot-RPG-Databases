@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 
 var effect_manager_tab = ""
@@ -24,12 +24,14 @@ func load_data(file_name):
 	# Will contain the JSON parsing result if valid (typically a dictionary or array)
 	var result
 	var file_path = "res://databases/"+file_name+".json"
-	var file = File.new()
-	var file_error = file.open(file_path, File.READ)
+	var file = FileAccess.open
+	var file_error = file.open(file_path, FileAccess.READ)
 
 	if file_error == OK:
 		# The file was read successfully
-		var json_result := JSON.parse(file.get_as_text())
+		var j = JSON.new()
+		j.parse(file.get_as_text())
+		var json_result = j.get_data()
 		if json_result.error == OK:
 			# File contains valid JSON
 			result = json_result.result
@@ -45,19 +47,19 @@ func load_data(file_name):
 	return {}
 
 func store_data(file, data):
-	var databaseFile = File.new()
-	var err = databaseFile.open("res://databases/" + file + ".json", File.WRITE)
+	var databaseFile = FileAccess.open
+	var err = databaseFile.open("res://databases/" + file + ".json", FileAccess.WRITE)
 	if err != OK:
 		print("Unable to store data" + String(err))
 		return
-	databaseFile.store_string(JSON.print(data))
+	databaseFile.store_string(JSON.stringify(data))
 	databaseFile.close()
 
 
 func create_system_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if not databaseFile.file_exists("res://databases/System.json"):
-		var result = databaseFile.open("res://databases/System.json", File.WRITE)
+		var result = databaseFile.open("res://databases/System.json", FileAccess.WRITE)
 		var systemList = {}
 		var statsData = {}
 		var weaponTypeData = {}
@@ -98,13 +100,13 @@ func create_system_database():
 		systemList["elements"] = elementData
 		systemList["slots"] = slotsData
 		systemList["skills"] = skillTypeData
-		databaseFile.store_line(JSON.print(systemList))
+		databaseFile.store_line(JSON.stringify(systemList))
 		databaseFile.close()
 
 func create_character_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if not databaseFile.file_exists("res://databases/Character.json"):
-		databaseFile.open("res://databases/Character.json", File.WRITE)
+		databaseFile.open("res://databases/Character.json", FileAccess.WRITE)
 		var characterList = {}
 		var characterData = {}
 		var equipTypeData = {}
@@ -127,13 +129,13 @@ func create_character_database():
 		characterData["initial_equip"] = initialEquipData
 		characterData["equip_types"] = equipTypeData
 		characterList["chara0"] = characterData
-		databaseFile.store_line(JSON.print(characterList))
+		databaseFile.store_line(JSON.stringify(characterList))
 		databaseFile.close()
 
 func create_skill_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if not databaseFile.file_exists("res://databases/Skill.json"):
-		databaseFile.open("res://databases/Skill.json", File.WRITE)
+		databaseFile.open("res://databases/Skill.json", FileAccess.WRITE)
 		var skillList = {}
 		var skillData = {}
 		skillData["name"] = "Double Attack"
@@ -150,13 +152,13 @@ func create_skill_database():
 		skillData["element"] = 0
 		skillData["formula"] = "atk * 4 - def * 2"
 		skillList["skill0"] = skillData
-		databaseFile.store_line(JSON.print(skillList))
+		databaseFile.store_line(JSON.stringify(skillList))
 		databaseFile.close()
 
 func create_class_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if not databaseFile.file_exists("res://databases/Class.json"):
-		databaseFile.open("res://databases/Class.json", File.WRITE)
+		databaseFile.open("res://databases/Class.json", FileAccess.WRITE)
 		var classList = {}
 		var classData = {}
 		var classStats = {}
@@ -176,13 +178,13 @@ func create_class_database():
 		classData["skill_list"] = skillList
 		classData["stat_list"] = classStats
 		classList["class0"] = classData
-		databaseFile.store_line(JSON.print(classList))
+		databaseFile.store_line(JSON.stringify(classList))
 		databaseFile.close()
 
 func create_item_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if (!databaseFile.file_exists("res://databases/Item.json")):
-		databaseFile.open("res://databases/Item.json", File.WRITE)
+		databaseFile.open("res://databases/Item.json", FileAccess.WRITE)
 		var itemList = {}
 		var itemData = {}
 		itemData["name"] = "Potion"
@@ -199,13 +201,13 @@ func create_item_database():
 		itemData["element"] = 0
 		itemData["formula"] = "50"
 		itemList["item0"] = itemData
-		databaseFile.store_line(JSON.print(itemList))
+		databaseFile.store_line(JSON.stringify(itemList))
 		databaseFile.close()
 
 func create_weapon_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if (!databaseFile.file_exists("res://databases/Weapon.json")):
-		databaseFile.open("res://databases/Weapon.json", File.WRITE)
+		databaseFile.open("res://databases/Weapon.json", FileAccess.WRITE)
 		var weaponList = {}
 		var weaponData = {}
 		var weaponStats = {}
@@ -226,13 +228,13 @@ func create_weapon_database():
 		weaponStats["luk"] = "0"
 		weaponData["stat_list"] = weaponStats
 		weaponList["weapon0"] = weaponData
-		databaseFile.store_line(JSON.print(weaponList))
+		databaseFile.store_line(JSON.stringify(weaponList))
 		databaseFile.close()
 
 func create_armor_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if (!databaseFile.file_exists("res://databases/Armor.json")):
-		databaseFile.open("res://databases/Armor.json", File.WRITE)
+		databaseFile.open("res://databases/Armor.json", FileAccess.WRITE)
 		var armorList = {}
 		var armorData = {}
 		var armorStats = {}
@@ -252,13 +254,13 @@ func create_armor_database():
 		armorStats["luk"] = "0"
 		armorData["stat_list"] = armorStats
 		armorList["armor0"] = armorData
-		databaseFile.store_line(JSON.print(armorList))
+		databaseFile.store_line(JSON.stringify(armorList))
 		databaseFile.close()
 
 func create_enemy_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if (!databaseFile.file_exists("res://databases/Enemy.json")):
-		databaseFile.open("res://databases/Enemy.json", File.WRITE)
+		databaseFile.open("res://databases/Enemy.json", FileAccess.WRITE)
 		var enemyList = {}
 		var enemyData = {}
 		var statsData = {}
@@ -279,13 +281,13 @@ func create_enemy_database():
 		enemyData["stat_list"] = statsData
 		enemyData["drop_list"] = dropData
 		enemyList["enemy0"] = enemyData
-		databaseFile.store_line(JSON.print(enemyList))
+		databaseFile.store_line(JSON.stringify(enemyList))
 		databaseFile.close()
 
 func create_state_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if (!databaseFile.file_exists("res://databases/State.json")):
-		databaseFile.open("res://databases/State.json", File.WRITE)
+		databaseFile.open("res://databases/State.json", FileAccess.WRITE)
 		var stateList = {}
 		var stateData = {}
 		var eraseCondition = {}
@@ -306,13 +308,13 @@ func create_state_database():
 		stateData["custom_erase_conditions"] = customEraseConditions
 
 		stateList["state0"] = stateData
-		databaseFile.store_line(JSON.print(stateList))
+		databaseFile.store_line(JSON.stringify(stateList))
 		databaseFile.close()
 
 func create_effect_database():
-	var databaseFile = File.new()
+	var databaseFile = FileAccess.open
 	if (!databaseFile.file_exists("res://databases/Effect.json")):
-		databaseFile.open("res://databases/Effect.json", File.WRITE)
+		databaseFile.open("res://databases/Effect.json", FileAccess.WRITE)
 		var effect_list = {}
 		var effect_data = {}
 		var showList = {}
@@ -327,7 +329,7 @@ func create_effect_database():
 		effect_data["value2"] = value2
 		
 		effect_list["effect0"] = effect_data
-		databaseFile.store_line(JSON.print(effect_list))
+		databaseFile.store_line(JSON.stringify(effect_list))
 		databaseFile.close()
 
 
